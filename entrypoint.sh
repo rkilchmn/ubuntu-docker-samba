@@ -1,11 +1,10 @@
 #!/bin/bash
 
-SAMBA_USER=$1
-SAMBA_PASS=$2
-
 useradd $SAMBA_USER
-(echo $SAMBA_PASS; echo $SAMBA_PASS) | smbpasswd -s -a $SAMBA_USER
-gpasswd -a $SAMBA_USER $SAMBA_USER
+(echo $SAMBA_PASS; echo $SAMBA_PASS) | smbpasswd -a $SAMBA_USER
+
+groupadd samba
+gpasswd -a $SAMBA_USER samba
 
 testparm -s
 setfacl -R -m "g:samba:rwx" /srv/private/

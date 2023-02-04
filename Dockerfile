@@ -1,8 +1,11 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+
+ENV SAMBA_USER=samba \
+    SAMBA_PASS=mysambapass 
 
 LABEL maintainer="Chun-Sheng, Li <peter279k@gmail.com>"
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-common-bin acl
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-common-bin acl less
 COPY smb.conf /etc/samba/smb.conf
 COPY entrypoint.sh entrypoint.sh
 RUN mkdir /srv/private
